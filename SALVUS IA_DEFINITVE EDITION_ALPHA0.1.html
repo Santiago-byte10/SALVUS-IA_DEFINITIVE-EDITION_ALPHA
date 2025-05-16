@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>SALVUS IA - Ficha Médica Profesional</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+128&display=swap');
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f8fb;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input, select, button {
+            width: 100%;
+            margin-top: 5px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #ecf0f1;
+            border-radius: 10px;
+        }
+        .barcode {
+            font-family: 'Libre Barcode 128', cursive;
+            font-size: 60px;
+            text-align: center;
+        }
+        .box {
+            background: #fff;
+            border: 2px solid #bdc3c7;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .btn-print {
+            background-color: #2ecc71;
+        }
+        .btn-print:hover {
+            background-color: #27ae60;
+        }
+        .urgencia-0 { background-color: #FF0000; color: white; } /* Rojo */
+        .urgencia-1 { background-color: #FF4500; color: white; } /* Naranja */
+        .urgencia-2 { background-color: #FF8C00; color: white; } /* Naranja Oscuro */
+        .urgencia-3 { background-color: #FFFF00; color: black; } /* Amarillo */
+        .urgencia-4 { background-color: #ADFF2F; color: black; } /* Verde Amarillo */
+        .urgencia-5 { background-color: #00FF00; color: black; } /* Verde */
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SALVUS IA</h1>
+        <h2>Ficha Médica Inteligente</h2>
+        <label>Nombre:</label>
+        <input type="text" id="nombre">
+        <label>DNI:</label>
+        <input type="text" id="dni">
+        <label>Edad:</label>
+        <input type="number" id="edad">
+        <label>Peso (kg):</label>
+        <input type="number" id="peso">
+        <label>EPS:</label>
+        <input type="text" id="eps">
+        <label>Régimen:</label>
+        <select id="regimen">
+            <option value="Contributivo">Contributivo</option>
+            <option value="Subsidiado">Subsidiado</option>
+        </select>
+        <label>Ciudad:</label>
+        <input type="text" id="ciudad">
+        <label>Localidad:</label>
+        <input type="text" id="localidad">
+        <label>Dirección:</label>
+        <input type="text" id="direccion">
+        <label>Teléfono:</label>
+        <input type="text" id="telefono">
+        <label>¿Trae acompañante?</label>
+        <select id="acompanante">
+            <option value="Sí">Sí</option>
+            <option value="No">No</option>
+        </select>
+        <label>Correo electrónico:</label>
+        <input type="email" id="correo">
+        <label>Síntoma principal:</label>
+        <select id="sintoma">
+            <option value="">Seleccione un síntoma</option>
+            <option value="fiebre">Fiebre</option>
+            <option value="dolor_pecho">Dolor en el pecho</option>
+            <option value="cefalea">Cefalea</option>
+            <option value="dificultad_respirar">Dificultad para respirar</option>
+            <option value="mareo">Mareo</option>
+            <option value="dolor_abdominal">Dolor abdominal</option>
+            <option value="tos_persistente">Tos persistente</option>
+            <option value="vision_borrosa">Visión borrosa</option>
+            <option value="dolor_espalda">Dolor de espalda</option>
+            <option value="sangrado_nasal">Sangrado nasal</option>
+            <option value="nauseas_vomitos">Náuseas y vómitos</option>
+            <option value="diarrea">Diarrea</option>
+            <option value="fatiga">Fatiga</option>
+            <option value="confusion">Confusión</option>
+            <option value="convulsiones">Convulsiones</option>
+            <option value="perdida_conciencia">Pérdida de conciencia</option>
+            <option value="erupcion_cutanea">Erupción cutánea</option>
+            <option value="hinchazon">Hinchazón</option>
+            <option value="dolor_garganta">Dolor de garganta</option>
+            <option value="ganglios_inflamados">Ganglios linfáticos inflamados</option>
+            <option value="secrecion_nasal">Secreción nasal</option>
+            <option value="estornudos">Estornudos</option>
+            <option value="congestion_nasal">Congestión nasal</option>
+            <option value="silbidos_pecho">Silbidos en el pecho</option>
+            <option value="dolor_oido">Dolor de oído</option>
+            <option value="secrecion_oido">Secreción del oído</option>
+            <option value="perdida_audicion">Pérdida de audición</option>
+            <option value="dolor_sinusal">Dolor sinusal</option>
+            <option value="mal_aliento">Mal aliento</option>
+            <option value="boca_seca">Boca seca</option>
+            <option value="dolor_muelas">Dolor de muelas</option>
+            <option value="sangrado_encias">Sangrado de encías</option>
+            <option value="dificultad_tragar">Dificultad para tragar</option>
+            <option value="acidez_estomacal">Acidez estomacal</option>
+            <option value="indigestion">Indigestión</option>
+            <option value="vomito_sangre">Vómito con sangre</option>
+            <option value="heces_oscuras">Heces oscuras</option>
+            <option value="ictericia">Ictericia</option>
+            <option value="dolor_articular">Dolor articular</option>
+            <option value="rigidez_articular">Rigidez articular</option>
+            <option value="debilidad_muscular">Debilidad muscular</option>
+            <option value="calambres_musculares">Calambres musculares</option>
+            <option value="entumecimiento">Entumecimiento</option>
+            <option value="hormigueo">Hormigueo</option>
+            <option value="perdida_fuerza">Pérdida de fuerza</option>
+            <option value="dolor_cabeza_intenso">Dolor de cabeza intenso</option>
+            <option value="cambios_vision">Cambios en la visión</option>
+            <option value="dificultad_hablar">Dificultad para hablar</option>
+            <option value="paralisis">Parálisis</option>
+            <option value="confusion_repentina">Confusión repentina</option>
+            <option value="problemas_memoria">Problemas de memoria</option>
+            <option value="cambios_humor">Cambios de humor</option>
+            <option value="ansiedad">Ansiedad</option>
+            <option value="depresion">Depresión</option>
+            <option value="insomnio">Insomnio</option>
+            <option value="pesadillas">Pesadillas</option>
+            <option value="perdida_apetito">Pérdida de apetito</option>
+            <option value="aumento_sed">Aumento de la sed</option>
+            <option value="miccion_frecuente">Micción frecuente</option>
+            <option value="perdida_peso_inexplicable">Pérdida de peso inexplicable</option>
+            <option value="sudoracion_excesiva">Sudoración excesiva</option>
+            <option value="escalofrios">Escalofríos</option>
+            <option value="cansancio_extremo">Cansancio extremo</option>
+        </select>
+
+        <label>Frecuencia Cardíaca (latidos por minuto):</label>
+        <input type="number" id="frecuencia_cardiaca">
+        <label>Saturación de Oxígeno (%):</label>
+        <input type="number" id="saturacion_oxigeno">
+        <label>Presión Arterial Sistólica (mmHg):</label>
+        <input type="number" id="presion_arterial_sistolica">
+        <label>Presión Arterial Diastólica (mmHg):</label>
+        <input type="number" id="presion_arterial_diastolica">
+        <label>Temperatura (°C):</label>
+        <input type="number" id="temperatura">
+
+        <button onclick="generarFicha()">Evaluar Paciente</button>
+        <div class="result" id="resultado" style="display:none;"></div>
+        <button class="btn-print" onclick="imprimirResultado()" id="btnPrint" style="display:none;">Imprimir Ficha</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <script>
+        const especialidades = {
+            "fiebre": "Medicina General",
+            "dolor_pecho": "Cardiología",
+            "cefalea": "Neurología",
+            "dificultad_respirar": "Neumología",
+            "mareo": "Medicina Interna",
+            "dolor_abdominal": "Gastroenterología",
+            "tos_persistente": "Neumología",
+            "vision_borrosa": "Oftalmología",
+            "dolor_espalda": "Ortopedia",
+            "sangrado_nasal": "Otorrinolaringología",
+            "nauseas_vomitos": "Gastroenterología",
+            "diarrea": "Gastroenterología",
+            "fatiga": "Medicina General",
+            "confusion": "Neurología",
+            "convulsiones": "Neurología",
+            "perdida_conciencia": "Neurología",
+            "erupcion_cutanea": "Dermatología",
+            "hinchazon": "Medicina General",
+            "dolor_garganta": "Otorrinolaringología",
+            "ganglios_inflamados": "Medicina General",
+            "secrecion_nasal": "Otorrinolaringología",
+            "estornudos": "Alergología",
+            "congestion_nasal": "Otorrinolaringología",
+            "silbidos_pecho": "Neumología",
+            "dolor_oido": "Otorrinolaringología",
+            "secrecion_oido": "Otorrinolaringología",
+            "perdida_audicion": "Otorrinolaringología",
+            "dolor_sinusal": "Otorrinolaringología",
+            "mal_aliento": "Odontología",
+            "boca_seca": "Odontología",
+            "dolor_muelas": "Odontología",
+            "sangrado_encias": "Odontología",
+            "dificultad_tragar": "Gastroenterología",
+            "acidez_estomacal": "Gastroenterología",
+            "indigestion": "Gastroenterología",
+            "vomito_sangre": "Gastroenterología",
+            "heces_oscuras": "Gastroenterología",
+            "ictericia": "Gastroenterología",
+            "dolor_articular": "Reumatología",
+            "rigidez_articular": "Reumatología",
+            "debilidad_muscular": "Neurología",
+            "calambres_musculares": "Medicina General",
+            "entumecimiento": "Neurología",
+            "hormigueo": "Neurología",
+            "perdida_fuerza": "Neurología",
+            "dolor_cabeza_intenso": "Neurología",
+            "cambios_vision": "Oftalmología",
+            "dificultad_hablar": "Neurología",
+            "paralisis": "Neurología",
+            "confusion_repentina": "Neurología",
+            "problemas_memoria": "Neurología",
+            "cambios_humor": "Psiquiatría",
+            "ansiedad": "Psiquiatría",
+            "depresion": "Psiquiatría",
+            "insomnio": "Psiquiatría",
+            "pesadillas": "Psiquiatría",
+            "perdida_apetito": "Gastroenterología",
+            "aumento_sed": "Endocrinología",
+            "miccion_frecuente": "Urología",
+            "perdida_peso_inexplicable": "Endocrinología",
+            "sudoracion_excesiva": "Endocrinología",
+            "escalofrios": "Medicina General",
+            "cansancio_extremo": "Medicina General"
+        };
+
+        const triagePorSintoma = {
+            "fiebre": 3,
+            "dolor_pecho": 1,
+            "cefalea": 4,
+            "dificultad_respirar": 2,
+            "mareo": 3,
+            "dolor_abdominal": 3,
+            "tos_persistente": 2,
+            "vision_borrosa": 4,
+            "dolor_espalda": 3,
+            "sangrado_nasal": 3,
+            "nauseas_vomitos": 3,
+            "diarrea": 3,
+            "fatiga": 4,
+            "confusion": 2,
+            "convulsiones": 1,
+            "perdida_conciencia": 1,
+            "erupcion_cutanea": 4,
+            "hinchazon": 3,
+            "dolor_garganta": 4,
+            "ganglios_inflamados": 3,
+            "secrecion_nasal": 4,
+            "estornudos": 4,
+            "congestion_nasal": 4,
+            "silbidos_pecho": 2,
+            "dolor_oido": 4,
+            "secrecion_oido": 3,
+            "perdida_audicion": 3,
+            "dolor_sinusal": 4,
+            "mal_aliento": 5,
+            "boca_seca": 5,
+            "dolor_muelas": 4,
+            "sangrado_encias": 4,
+            "dificultad_tragar": 3,
+            "acidez_estomacal": 3,
+            "indigestion": 4,
+            "vomito_sangre": 1,
+            "heces_oscuras": 1,
+            "ictericia": 2,
+            "dolor_articular": 3,
+            "rigidez_articular": 3,
+            "debilidad_muscular": 2,
+            "calambres_musculares": 4,
+            "entumecimiento": 2,
+            "hormigueo": 2,
+            "perdida_fuerza": 1,
+            "dolor_cabeza_intenso": 1,
+            "cambios_vision": 2,
+            "dificultad_hablar": 1,
+            "paralisis": 1,
+            "confusion_repentina": 1,
+            "problemas_memoria": 2,
+            "cambios_humor": 3,
+            "ansiedad": 3,
+            "depresion": 3,
+            "insomnio": 4,
+            "pesadillas": 4,
+            "perdida_apetito": 3,
+            "aumento_sed": 3,
+            "miccion_frecuente": 3,
+            "perdida_peso_inexplicable": 2,
+            "sudoracion_excesiva": 3,
+            "escalofrios": 3,
+            "cansancio_extremo": 2
+        };
+
+        const medicamentos = {
+            "fiebre": [{ nombre: "Paracetamol", dosis: 15 }],
+            "dolor_pecho": [{ nombre: "Aspirina", dosis: 5 }],
+            "cefalea": [{ nombre: "Naproxeno", dosis: 10 }],
+            "dificultad_respirar": [{ nombre: "Salbutamol", dosis: 0.15 }],
+            "mareo": [{ nombre: "Metoclopramida", dosis: 0.2 }],
+            "dolor_abdominal": [{ nombre: "Buscapina", dosis: 0.3 }],
+            "tos_persistente": [{ nombre: "Ambroxol", dosis: 1 }],
+            "vision_borrosa": [{ nombre: "Luteína", dosis: 0.5 }],
+            "dolor_espalda": [{ nombre: "Ibuprofeno", dosis: 10 }],
+            "sangrado_nasal": [{ nombre: "Oximetazolina", dosis: 0.05 }],
+            "nauseas_vomitos": [{ nombre: "Ondansetrón", dosis: 0.1 }],
+            "diarrea": [{ nombre: "Loperamida", dosis: 0.2 }],
+            "fatiga": [{ nombre: "Complejo B", dosis: 1 }],
+            "confusion": [{ nombre: "Haloperidol", dosis: 0.05 }],
+            "convulsiones": [{ nombre: "Diazepam", dosis: 0.1 }],
+            "perdida_conciencia": [{ nombre: "Flumazenil", dosis: 0.01 }],
+            "erupcion_cutanea": [{ nombre: "Hidrocortisona", dosis: 0.025 }],
+            "hinchazon": [{ nombre: "Ibuprofeno", dosis: 10 }],
+            "dolor_garganta": [{ nombre: "Ibuprofeno", dosis: 10 }],
+            "ganglios_inflamados": [{ nombre: "Amoxicilina", dosis: 25 }],
+            "secrecion_nasal": [{ nombre: "Pseudoefedrina", dosis: 0.12 }],
+            "estornudos": [{ nombre: "Cetirizina", dosis: 0.1 }],
+            "congestion_nasal": [{ nombre: "Oximetazolina", dosis: 0.05 }],
+            "silbidos_pecho": [{ nombre: "Salbutamol", dosis: 0.15 }],
+            "dolor_oido": [{ nombre: "Ibuprofeno", dosis: 10 }],
+            "secrecion_oido": [{ nombre: "Ciprofloxacino", dosis: 0.3 }],
+            "perdida_audicion": [{ nombre: "Ginkgo Biloba", dosis: 0.08 }],
+            "dolor_sinusal": [{ nombre: "Ibuprofeno", dosis: 10 }],
+            "mal_aliento": [{ nombre: "Clorhexidina", dosis: 0.05 }],
+            "boca_seca": [{ nombre: "Pilocarpina", dosis: 0.005 }],
+            "dolor_muelas": [{ nombre: "Ibuprofeno", dosis: 10 }],
+            "sangrado_encias": [{ nombre: "Ácido Tranexámico", dosis: 5 }],
+            "dificultad_tragar": [{ nombre: "Prednisona", dosis: 0.05 }],
+            "acidez_estomacal": [{ nombre: "Omeprazol", dosis: 0.02 }],
+            "indigestion": [{ nombre: "Simeticona", dosis: 0.08 }],
+            "vomito_sangre": [{ nombre: "Ondansetrón", dosis: 0.1 }],
+            "heces_oscuras": [{ nombre: "Lactulosa", dosis: 15 }],
+            "ictericia": [{ nombre: "Ursodiol", dosis: 15 }],
+            "dolor_articular": [{ nombre: "Naproxeno", dosis: 10 }],
+            "rigidez_articular": [{ nombre: "Metotrexato", dosis: 0.01 }],
+            "debilidad_muscular": [{ nombre: "Piridostigmina", dosis: 0.06 }],
+            "calambres_musculares": [{ nombre: "Magnesio", dosis: 5 }],
+            "entumecimiento": [{ nombre: "Pregabalina", dosis: 0.075 }],
+            "hormigueo": [{ nombre: "Gabapentina", dosis: 0.3 }],
+            "perdida_fuerza": [{ nombre: "Creatina", dosis: 5 }],
+            "dolor_cabeza_intenso": [{ nombre: "Sumatriptán", dosis: 0.025 }],
+            "cambios_vision": [{ nombre: "Luteína", dosis: 0.5 }],
+            "dificultad_hablar": [{ nombre: "Risperidona", dosis: 0.01 }],
+            "paralisis": [{ nombre: "Baclofeno", dosis: 0.005 }],
+            "confusion_repentina": [{ nombre: "Haloperidol", dosis: 0.05 }],
+            "problemas_memoria": [{ nombre: "Donepezilo", dosis: 0.005 }],
+            "cambios_humor": [{ nombre: "Sertralina", dosis: 0.025 }],
+            "ansiedad": [{ nombre: "Lorazepam", dosis: 0.001 }],
+            "depresion": [{ nombre: "Sertralina", dosis: 0.025 }],
+            "insomnio": [{ nombre: "Melatonina", dosis: 0.003 }],
+            "pesadillas": [{ nombre: "Prazosina", dosis: 0.001 }],
+            "perdida_apetito": [{ nombre: "Ciproheptadina", dosis: 0.004 }],
+            "aumento_sed": [{ nombre: "Desmopresina", dosis: 0.0001 }],
+            "miccion_frecuente": [{ nombre: "Tolterodina", dosis: 0.002 }],
+            "perdida_peso_inexplicable": [{ nombre: "Megestrol", dosis: 0.04 }],
+            "sudoracion_excesiva": [{ nombre: "Oxibutinina", dosis: 0.005 }],
+            "escalofrios": [{ nombre: "Paracetamol", dosis: 15 }],
+            "cansancio_extremo": [{ nombre: "Modafinilo", dosis: 0.1 }]
+        };
+
+        function calcularNivelUrgencia(frecuenciaCardiaca, saturacionOxigeno, presionSistolica, presionDiastolica, temperatura) {
+            let nivelUrgencia = 5; // Verde
+
+            if (frecuenciaCardiaca < 40 || frecuenciaCardiaca > 130) {
+                nivelUrgencia = 1; // Rojo
+            } else if (frecuenciaCardiaca < 50 || frecuenciaCardiaca > 120) {
+                nivelUrgencia = 2; // Naranja
+            } else if (frecuenciaCardiaca < 60 || frecuenciaCardiaca > 100) {
+                nivelUrgencia = 3; // Amarillo
+            }
+
+            if (saturacionOxigeno < 85) {
+                nivelUrgencia = 1; // Rojo
+            } else if (saturacionOxigeno < 90) {
+                nivelUrgencia = 2; // Naranja
+            }
+
+            if (presionSistolica < 90 || presionSistolica > 200) {
+                nivelUrgencia = 1; // Rojo
+            } else if (presionSistolica < 100 || presionSistolica > 180) {
+                nivelUrgencia = 2; // Naranja
+            } else if (presionSistolica < 110 || presionSistolica > 160) {
+                nivelUrgencia = 3; // Amarillo
+            }
+
+            if (presionDiastolica < 60 || presionDiastolica > 120) {
+                nivelUrgencia = 1; // Rojo
+            } else if (presionDiastolica < 70 || presionDiastolica > 110) {
+                nivelUrgencia = 2; // Naranja
+            } else if (presionDiastolica < 80 || presionDiastolica > 100) {
+                nivelUrgencia = 3; // Amarillo
+            }
+
+            if (temperatura < 36 || temperatura > 40) {
+                nivelUrgencia = 1; // Rojo
+            } else if (temperatura < 36.5 || temperatura > 39) {
+                nivelUrgencia = 2; // Naranja
+            } else if (temperatura < 37 || temperatura > 38) {
+                nivelUrgencia = 3; // Amarillo
+            }
+
+            return nivelUrgencia;
+        }
+
+        function generarFicha() {
+            const nombre = document.getElementById("nombre").value;
+            const dni = document.getElementById("dni").value;
+            const edad = parseInt(document.getElementById("edad").value);
+            const peso = parseFloat(document.getElementById("peso").value);
+            const eps = document.getElementById("eps").value;
+            const regimen = document.getElementById("regimen").value;
+            const ciudad = document.getElementById("ciudad").value;
+            const localidad = document.getElementById("localidad").value;
+            const direccion = document.getElementById("direccion").value;
+            const telefono = document.getElementById("telefono").value;
+            const acompanante = document.getElementById("acompanante").value;
+            const correo = document.getElementById("correo").value;
+            const sintoma = document.getElementById("sintoma").value;
+            const frecuenciaCardiaca = parseInt(document.getElementById("frecuencia_cardiaca").value);
+            const saturacionOxigeno = parseInt(document.getElementById("saturacion_oxigeno").value);
+            const presionSistolica = parseInt(document.getElementById("presion_arterial_sistolica").value);
+            const presionDiastolica = parseInt(document.getElementById("presion_arterial_diastolica").value);
+            const temperatura = parseFloat(document.getElementById("temperatura").value);
+
+            const nivelUrgencia = calcularNivelUrgencia(frecuenciaCardiaca, saturacionOxigeno, presionSistolica, presionDiastolica, temperatura);
+            const especialidad = especialidades[sintoma] || "Medicina General";
+            const turno = `T-${Math.floor(Math.random() * 900 + 100)}`;
+            let receta = "";
+            if (medicamentos[sintoma]) {
+                receta = medicamentos[sintoma].map(m => {
+                    const dosisTotal = (m.dosis * peso).toFixed(1);
+                    return `<div><strong>${m.nombre}:</strong> ${dosisTotal} mg cada 8h por 3 días</div>`;
+                }).join("");
+            }
+            const codigoBarras = `*${dni.slice(-8).padStart(8, '0')}*`;
+            const nivelUrgenciaText = ["Rojo", "Naranja", "Amarillo", "Verde Amarillo", "Verde", "Verde"][nivelUrgencia];
+            document.getElementById("resultado").innerHTML = `
+                <h2>Ficha Médica</h2>
+                <div class="barcode">${codigoBarras}</div>
+                <div class="box">
+                    <strong>Nombre:</strong> ${nombre}<br>
+                    <strong>DNI:</strong> ${dni}<br>
+                    <strong>Edad:</strong> ${edad} años<br>
+                    <strong>Peso:</strong> ${peso} kg<br>
+                    <strong>EPS:</strong> ${eps}<br>
+                    <strong>Régimen:</strong> ${regimen}<br>
+                    <strong>Ciudad:</strong> ${ciudad}<br>
+                    <strong>Localidad:</strong> ${localidad}<br>
+                    <strong>Dirección:</strong> ${direccion}<br>
+                    <strong>Teléfono:</strong> ${telefono}<br>
+                    <strong>Acompañante:</strong> ${acompanante}<br>
+                    <strong>Correo:</strong> ${correo}<br>
+                </div>
+                <div class="box">
+                    <strong>Síntoma:</strong> ${sintoma}<br>
+                    <strong>Frecuencia Cardíaca:</strong> ${frecuenciaCardiaca} lpm<br>
+                    <strong>Saturación de Oxígeno:</strong> ${saturacionOxigeno}%<br>
+                    <strong>Presión Arterial:</strong> ${presionSistolica}/${presionDiastolica} mmHg<br>
+                    <strong>Temperatura:</strong> ${temperatura} °C<br>
+                    <strong>Clasificación TRIAGE:</strong> <span class="urgencia-${nivelUrgencia}">${nivelUrgenciaText}</span><br>
+                    <strong>Turno asignado:</strong> ${turno}<br>
+                    <strong>Especialidad:</strong> ${especialidad}<br>
+                </div>
+                <div class="box">
+                    <h3>Recomendaciones</h3>
+                    Reposo relativo, hidratación abundante, seguimiento médico.
+                </div>
+                <div class="box">
+                    <h3>Fórmula Médica</h3>
+                    ${receta}
+                </div>
+                <div id="turnoPDF" style="display:none;">${turno}</div>
+            `;
+            document.getElementById("resultado").style.display = "block";
+            document.getElementById("btnPrint").style.display = "inline-block";
+        }
+
+        function imprimirResultado() {
+            const element = document.getElementById('resultado');
+            const turno = document.getElementById('turnoPDF').innerText;
+            const opt = {
+                margin: 10,
+                filename: `FichaMedica_Turno_${turno}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf(element, opt);
+        }
+    </script>
+</body>
+</html>
